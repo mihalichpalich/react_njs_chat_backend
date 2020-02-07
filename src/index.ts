@@ -1,25 +1,19 @@
-import mongoose from 'mongoose';
 import express from 'express';
-import bodyParser from 'body-parser';
-import {UserController} from './controllers';
+import {createServer} from 'http';
+import dotenv from 'dotenv';
+
+import './core/db';
+import createRoutes from './core/routes';
+import createSocket from './core/socket';
 
 const app = express();
+const http = createServer(app);
+const io = createSocket(http);
 
-app.use(bodyParser.json());
+dotenv.config();
 
-const User = new UserController();
+createRoutes(app, io);
 
-mongoose.connect('mongodb://localhost:27017/chat', {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: true
-});
-
-app.get('/user/:id', User.show);
-app.post('/user/registration', User.create);
-app.delete('/user/:id', User.delete);
-
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+http.listen(process.env.PORT, function () {
+  console.log(`Server: http://localhost:${process.env.PORT}`);
 });

@@ -1,13 +1,20 @@
 import mongoose, {Schema, Document} from 'mongoose';
 
 export interface IDialog extends Document {
-    email: string;
-    fullname: string;
-    password: string;
-    confirmed: Boolean;
-    avatar: string;
-    confirm_hash: string;
-    last_seen: Date;
+    partner: {
+        type: Schema.Types.ObjectId;
+        ref: string;
+        require: true;
+    };
+    author: {
+        type: Schema.Types.ObjectId;
+        ref: string;
+        require: true;
+    };
+    lastMessage: {
+        type: Schema.Types.ObjectId;
+        ref: string;
+    }
 };
 
 const DialogSchema = new Schema(
@@ -19,12 +26,6 @@ const DialogSchema = new Schema(
         timestamps: true
     }
 );
-
-new DialogModel({
-    partner: partner_id,
-    author: author_id,
-    lastMessage: message_id
-})
 
 const DialogModel = mongoose.model<IDialog>("Dialog", DialogSchema);
 

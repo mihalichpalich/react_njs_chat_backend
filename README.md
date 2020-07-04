@@ -1,3 +1,12 @@
-"C:\Program Files\MongoDB\Server\4.2\bin\mongod.exe" --dbpath="c:\data\db"
+Серверная часть мессенджера
 
-"C:\Program Files\MongoDB\Server\4.2\bin\mongo.exe"
+[Клиентская часть](https://github.com/mihalichpalich/react_njs_chat)
+
+**Stack:**
+
+- NodeJS
+- TypeScript
+- Express
+- Mongoose
+- Socket.io
+- JWT
